@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"heraldo-server/middleware"
 
 	"net/http"
 	"os"
@@ -90,15 +91,17 @@ func callOpenAI(prompt string) (*OaiResp, error) {
 
 func main() {
 	// whiteList := map[string]bool{
-	// 	"https://www.google.com": true,
-	// 	"https://www.yahoo.com":  true,
+	// 	"https://chamonix.netlify.app": true,
+	// 	"http":  true,
 	// }
 	router := gin.Default()
 
 	// Add whitelist middleware
 	// router.Use(middleware.IPWhiteList(whiteList))
+	router.Use(middleware.CORSMiddleware())
+
 	router.GET("/albums", handleGet)
 
 	router.POST("/llm", handleLLM)
-	router.Run("0.0.0.0:8080")
+	router.Run("127.0.0.1:8080")
 }
