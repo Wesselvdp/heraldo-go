@@ -6,6 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// whiteList := map[string]bool{
+// 	"https://chamonix.netlify.app": true,
+// 	"http":  true,
+// }
+
 func IPWhiteList(whitelist map[string]bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if !whitelist[c.ClientIP()] {
